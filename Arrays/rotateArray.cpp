@@ -27,3 +27,46 @@ public:
     }
 
 };
+
+/* Method-2: using the Juggling Algorithm. time complexity- O(n), space complexity- O(1) */
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+    	
+        k %= nums.size();
+        int n=gcd(nums.size(),k);
+        
+        for(int i=0; i < n; i++){
+            int j=i, step;
+            
+            int temp= nums[j];
+            
+            while(true){
+                step= j+k;
+                //cout<<step<<endl;
+                if(step >= nums.size())
+                    step= step-nums.size();
+                
+                if(step==i)
+                    break;
+                    
+                int save= nums[step];
+                
+                nums[step]= temp;
+               // cout<<step<<" "<<temp<<endl;
+                temp = save;
+                j= step;
+                //cout<<j<<endl;
+            }
+            nums[i]=temp;
+            //cout<<j<<" "<<temp;
+        }
+    }
+    int gcd(int a,int b){
+        
+        if(b==0)
+            return a;
+        return gcd(b, a%b);
+    }
+};
